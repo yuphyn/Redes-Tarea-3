@@ -161,7 +161,7 @@ class ClientHandler2 extends Thread
                 //entradaEscaner.close();
                 switch (entradaTeclado) {
                     case "1":
-                        Path dir = Paths.get("./media");
+                        Path dir = Paths.get("../media");
                         StringBuilder names = new StringBuilder();
                         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
                             for (Path file : stream) {
@@ -181,7 +181,7 @@ class ClientHandler2 extends Thread
                         System.out.println ("Ingrese el nombre del video");
                         String nombre = "";
                         nombre = entradaEscaner.nextLine ();
-                        String auxiliar2 = "./media/"+nombre;
+                        String auxiliar2 = "../media/"+nombre;
                         Path auxiliar = Paths.get(auxiliar2);
                         Path dir2 = Paths.get("./media");
                         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir2)) {

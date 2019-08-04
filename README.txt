@@ -1,4 +1,4 @@
-# Redes-Tarea-3 
+﻿# Redes-Tarea-3 
 
 Integrantes:
 - Jorge Contreras Cabrera 201573547-6
@@ -11,3 +11,4 @@ make Usuario
 
 Consideraciones:
 - No se pudo realizar la transmisión del streaming, sin embargo se simuló a través de mensajes de la misma estructura.
+- La carpeta media debe contener solo archivos para la transmision
