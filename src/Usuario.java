@@ -161,11 +161,11 @@ class ClientHandler2 extends Thread
                 //entradaEscaner.close();
                 switch (entradaTeclado) {
                     case "1":
-                        Path dir = Paths.get("./media");
+                        Path dir = Paths.get("./../media");
                         StringBuilder names = new StringBuilder();
                         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
                             for (Path file : stream) {
-                                names.append(file).append("\n");
+                                names.append(file.toString().substring(11)).append("\n");
                             }
                         }
                         System.out.println(names);
@@ -181,9 +181,9 @@ class ClientHandler2 extends Thread
                         System.out.println ("Ingrese el nombre del video");
                         String nombre = "";
                         nombre = entradaEscaner.nextLine ();
-                        String auxiliar2 = "../media/"+nombre;
+                        String auxiliar2 = "./../media/"+nombre;
                         Path auxiliar = Paths.get(auxiliar2);
-                        Path dir2 = Paths.get("./media");
+                        Path dir2 = Paths.get("./../media");
                         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir2)) {
                             for (Path file : stream) {
                                 if (file.equals(auxiliar)){
@@ -201,7 +201,7 @@ class ClientHandler2 extends Thread
                             while (i < 10) {
                                 try {
                                     TimeUnit.SECONDS.sleep(1);
-                                    System.out.println("streaming... "+nombre+"  "+s.getPort());
+                                    System.out.println("streaming... "+nombre+"  ");
                                 } catch (Exception e) {
                                     System.out.println(".");
                                 }
