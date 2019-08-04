@@ -94,10 +94,15 @@ public class Usuario2
                         System.out.println("mostrar");
                     }
                     else if (mensaje.equals("enviando")){
-                        System.out.println("entre");
                         Random rand = new Random();
                         int value = rand.nextInt(3);
-                        System.out.println("Estado de la conección: streaming <"+value+">");
+                        System.out.println("Estado de la coneccion: streaming <"+intArray[value]+">");
+                        try {
+                            TimeUnit.SECONDS.sleep(10);
+                        } catch (Exception e) {
+                            System.out.println(".");
+                        }
+                        System.out.println("Estado de la coneccion: idle");
                     }
 
                 }
@@ -142,7 +147,11 @@ class ClientHandler extends Thread
         {
             try {
                 //Menu del servidor
-                out.writeUTF(s.getPort()+";"+transmision1.getPort()+";"+transmision1.getPort());
+                Random rand = new Random();
+                int value = rand.nextInt(2000);
+                int value1=6000+value;
+                int value2=value1+1;
+                out.writeUTF(s.getPort()+";"+value1+";"+value2);
                 in.readUTF();
                 System.out.println ("Seleccione: \n"+ "1: Mostrar videos  \n"+ "2: Reproducir \n"+ "3: Salir");
                 System.out.println("Ingrese : ");
@@ -167,16 +176,36 @@ class ClientHandler extends Thread
                         System.out.println("Conección cerrada");
                         break label;
                     case "2":
-                        out.writeUTF("enviando");
-                        int i = 0;
-                        while (i < 10) {
-                            try {
-                                TimeUnit.SECONDS.sleep(1);
-                                System.out.println("streaming...");
-                            } catch (Exception e) {
-                                System.out.println(".");
+                        int FLAG=0;
+                        System.out.println ("Ingrese el nombre del video");
+                        String nombre = "";
+                        nombre = entradaEscaner.nextLine ();
+                        String auxiliar2 = "./media/"+nombre;
+                        Path auxiliar = Paths.get(auxiliar2);
+                        Path dir2 = Paths.get("./media");
+                        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir2)) {
+                            for (Path file : stream) {
+                                if (file.equals(auxiliar)){
+                                    FLAG=1;
+                                }
                             }
-                            i = i + 1;
+                        }
+                        if(FLAG==0){
+                            System.out.println("Error: video no encontrado");
+                            out.writeUTF("nada");
+                        }
+                        else {
+                            out.writeUTF("enviando");
+                            int i = 0;
+                            while (i < 10) {
+                                try {
+                                    TimeUnit.SECONDS.sleep(1);
+                                    System.out.println("streaming... "+nombre+"  "+s.getPort());
+                                } catch (Exception e) {
+                                    System.out.println(".");
+                                }
+                                i = i + 1;
+                            }
                         }
 
                         break;
